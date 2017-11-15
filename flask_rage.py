@@ -112,7 +112,13 @@ class FlaskRage:
             controller, action = req.url_rule.endpoint.partition('.')[::2]
         else:
             controller, action = None, None
-        status = resp.status_code if hasattr(resp, 'status_code') else 500
+
+        if hasattr(resp, 'status_code'):
+            status = resp.status_code
+        elif hasattr(resp, 'code'):
+            status = resp.code
+        else:
+            status = 500
 
         message = f"[{status}] " \
                   f"{req.environ.get('REQUEST_METHOD')} " \
