@@ -72,12 +72,22 @@ class TestFlaskRage(unittest.TestCase):
             resp = Response(status=200)
             self.rage.log_request(resp)
         logger.info.assert_called()
+        logger.error.assert_not_called()
+
+    def test_logs_error_for_request_with_code_gteq_400(self):
+        logger = Mock()
+        self.rage.logger = logger
+        with self.app.test_request_context('/test'):
+            resp = Response(status=400)
+            self.rage.log_request(resp)
+        logger.info.assert_not_called()
+        logger.error.assert_called_once()
 
     def test_does_not_log_request_for_exceptions(self):
         logger = Mock()
         self.rage.logger = logger
         with self.app.test_request_context('/test'):
-            resp = Response(status=403)
+            resp = Response(status=500)
             self.rage.log_request(resp)
         logger.info.assert_not_called()
 
