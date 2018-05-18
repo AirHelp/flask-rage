@@ -75,8 +75,12 @@ class FlaskRage:
         if response.status_code >= 500:
             return response
 
+        if response.status_code >= 400 and response.status_code != 404:
+            log_fn = self.logger.error
+        else:
+            log_fn = self.logger.info
         message, extra = self._parse(request, response)
-        self.logger.info(message, extra=extra)
+        log_fn(message, extra=extra)
         return response
 
     def log_exception(self, exception):
