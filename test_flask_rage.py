@@ -74,7 +74,7 @@ class TestFlaskRage(unittest.TestCase):
         logger.info.assert_called()
         logger.error.assert_not_called()
 
-    def test_logs_error_for_request_with_code_gteq_400(self):
+    def test_logs_error_for_request_with_code_gteq_400_and_neq_404(self):
         logger = Mock()
         self.rage.logger = logger
         with self.app.test_request_context('/test'):
@@ -82,6 +82,15 @@ class TestFlaskRage(unittest.TestCase):
             self.rage.log_request(resp)
         logger.info.assert_not_called()
         logger.error.assert_called_once()
+
+    def test_logs_info_for_request_with_code_eq_404(self):
+        logger = Mock()
+        self.rage.logger = logger
+        with self.app.test_request_context('/test'):
+            resp = Response(status=404)
+            self.rage.log_request(resp)
+        logger.info.assert_called_once()
+        logger.error.assert_not_called()
 
     def test_does_not_log_request_for_exceptions(self):
         logger = Mock()
