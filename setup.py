@@ -8,7 +8,7 @@ from setuptools import setup
 
 setup(
     name='Flask-RAGE',
-    version='2018.01.25.1425',
+    version='2018.05.18.1015',
     url='https://github.com/airhelp/flask-rage/',
     license='MIT',
     description='Flask logging addon inspired by lograge',
