@@ -44,7 +44,7 @@ class FlaskRageFormatter(logging.Formatter):
 
 class FlaskRage:
     """
-    Mimic RoR"s lograge "access log" formatting
+    Mimic RoR's lograge 'access log' formatting
 
     Setup by initializing the logger with your Flask application, e.g.:
 
@@ -91,7 +91,7 @@ class FlaskRage:
         """
         Log an exception in lograge-ish format
 
-        This can be called e.g. from flask"s errorhandlers
+        This can be called e.g. from flask's errorhandlers
 
         :param exception: Exception
         """
