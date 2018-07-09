@@ -4,4 +4,5 @@ python:
 install:
   - python setup.py -q install
 script:
-  - python setup.py -q test
+  - python setup.py -q ptr
+  - python setup.py -q flake8
