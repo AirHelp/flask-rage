@@ -1,5 +1,6 @@
 import json
 import logging
+import sys
 import unittest
 from unittest import mock
 from unittest.mock import Mock
@@ -7,6 +8,12 @@ from unittest.mock import Mock
 from flask import Response, request, Flask
 
 from flask_rage import FlaskRageFormatter, FlaskRage, current_millis
+
+
+class SampleError(Exception):
+    def __init__(self, msg):
+        super().__init__(msg)
+        self.message = msg
 
 
 class TestFlaskRageFormatter(unittest.TestCase):
@@ -46,7 +53,30 @@ class TestFlaskRageFormatter(unittest.TestCase):
         for key, value in extra.items():
             self.assertEqual(formatted[key], value)
 
-    def _log_record(self, extra=None):
+    def test_handle_exceptions_correctly(self):
+        try:
+            raise RuntimeError('sample exception')
+        except RuntimeError:
+            logger = logging.getLogger()
+            record = logger.makeRecord("logger", logging.NOTSET, "func", 0, "message", None, sys.exc_info())
+            formatted = json.loads(self.formatter.format(record))
+            self.assertEqual(formatted['exception'], ["<class 'RuntimeError'>", 'sample exception'])
+            self.assertIn("Traceback", formatted['exception_object'])
+            self.assertIn("sample exception", formatted['exception_object'])
+
+    def test_handle_exceptions_with_message_correctly(self):
+        try:
+            raise SampleError('sample exception')
+        except SampleError:
+            logger = logging.getLogger()
+            record = logger.makeRecord("logger", logging.NOTSET, "func", 0, "message", None, sys.exc_info())
+            formatted = json.loads(self.formatter.format(record))
+            self.assertEqual(formatted['exception'], ["<class 'test_flask_rage.SampleError'>", 'sample exception'])
+            self.assertIn("Traceback", formatted['exception_object'])
+            self.assertIn("sample exception", formatted['exception_object'])
+
+    @staticmethod
+    def _log_record(extra=None):
         logger = logging.getLogger()
         return logger.makeRecord("logger", logging.NOTSET, "func", 0, "message", None, None, extra=extra)
 
