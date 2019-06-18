@@ -35,11 +35,32 @@ class FlaskRageFormatter(logging.Formatter):
             if hasattr(record, key):
                 output[key] = getattr(record, key)
 
+        self.__prepare_error_info(output, record)
+
         output["@timestamp"] = datetime.fromtimestamp(record.created).astimezone().isoformat()
         output["severity"] = record.levelname
         output["message"] = record.getMessage()
 
         return json.dumps(output)
+
+    def __prepare_error_info(self, output: Dict[str, Any], record: logging.LogRecord):
+        """
+        Adds some information about potential exception to the output message.
+        """
+        if record.exc_info:
+            backtrace = self.formatException(record.exc_info)
+            if backtrace:
+                output['exception_object'] = backtrace
+            output['exception'] = [
+                str(record.exc_info[0]),
+                self.__extract_msg(record.exc_info[1])
+            ]
+
+    @staticmethod
+    def __extract_msg(exc):
+        if hasattr(exc, 'message'):
+            return getattr(exc, 'message')
+        return str(exc)
 
 
 class FlaskRage:
@@ -129,9 +150,9 @@ class FlaskRage:
             status = 500
 
         message = f"[{status}] " \
-                  f"{req.environ.get('REQUEST_METHOD')} " \
-                  f"{req.environ.get('PATH_INFO')} " \
-                  f"({controller}#{action})"
+            f"{req.environ.get('REQUEST_METHOD')} " \
+            f"{req.environ.get('PATH_INFO')} " \
+            f"({controller}#{action})"
 
         extra = {
             "method": req.environ.get("REQUEST_METHOD"),
