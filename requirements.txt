@@ -21,7 +21,7 @@ py==1.8.0
 pycodestyle==2.5.0
 pyflakes==2.1.1
 pyparsing==2.4.0
-pytest==4.6.2
+pytest==5.3.1
 pytest-cov==2.7.1
 pytest-cover==3.0.0
 pytest-coverage==0.0
