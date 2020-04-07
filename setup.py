@@ -18,7 +18,7 @@ setup(
     zip_safe=False,
     include_package_data=True,
     platforms="any",
-    tests_require=["Flask", "pytest", "pytest-coverage", "pytest-runner", "flake8"],
+    tests_require=["Flask", "pytest", "pytest-coverage", "pytest-runner"],
     install_requires=["Flask"],
     classifiers=[
         "Environment :: Web Environment",

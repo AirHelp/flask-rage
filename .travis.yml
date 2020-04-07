@@ -1,8 +1,10 @@
 language: python
 python:
-  - '3.6'
+  - '3.8'
 install:
   - python setup.py -q install
+  - pip install -U flake8
 script:
-  - python setup.py -q ptr
-  - python setup.py -q flake8
+  - python setup.py test
+  - flake8 flask_rage.py
+
