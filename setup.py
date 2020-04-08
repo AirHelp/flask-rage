@@ -8,7 +8,7 @@ from setuptools import setup
 
 setup(
     name="Flask-RAGE",
-    version="2019.6.18.0919",
+    version="2020.4.7.1240",
     url="https://github.com/airhelp/flask-rage/",
     license="MIT",
     description="Flask logging addon inspired by lograge",
@@ -18,8 +18,7 @@ setup(
     zip_safe=False,
     include_package_data=True,
     platforms="any",
-    setup_requires=["pytest-runner", "flake8", "mypy"],
-    tests_require=["Flask", "pytest", "pytest-coverage"],
+    tests_require=["Flask", "pytest", "pytest-coverage", "pytest-runner"],
     install_requires=["Flask"],
     classifiers=[
         "Environment :: Web Environment",
