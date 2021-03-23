@@ -2,13 +2,13 @@
 Flask-RAGE
 -------------------
 
-Flask logging addon inspired by RoR"s lograge gem
+Flask logging addon inspired by RoR's lograge gem
 """
 from setuptools import setup
 
 setup(
     name="Flask-RAGE",
-    version="2020.4.7.1240",
+    version="2021.3.23.630",
     url="https://github.com/airhelp/flask-rage/",
     license="MIT",
     description="Flask logging addon inspired by lograge",
