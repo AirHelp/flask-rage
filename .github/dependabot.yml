@@ -1,0 +1,9 @@
+version: 2
+updates:
+- package-ecosystem: pip
+  directory: "/"
+  schedule:
+    interval: weekly
+    time: "06:00"
+    timezone: Europe/Warsaw
+  open-pull-requests-limit: 2
