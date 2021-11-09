@@ -1,6 +1,6 @@
 # DEPRECATED
 
-###This is no longer supported
+### This is no longer supported since 2021-11-09
 
 ## Flask RAGE
 [![Build Status](https://travis-ci.org/AirHelp/flask-rage.svg?branch=develop)](https://travis-ci.org/AirHelp/flask-rage)
