@@ -1,4 +1,9 @@
-# Flask RAGE
+# DEPRECATED
+
+### This is no longer supported since 2021-11-10
+Repository will be archived on 2021-12-10
+
+## Flask RAGE
 [![Build Status](https://travis-ci.org/AirHelp/flask-rage.svg?branch=develop)](https://travis-ci.org/AirHelp/flask-rage)
 
 Flask extension allowing to mimic Ruby on Rails' [lograge](https://github.com/roidrage/lograge) gem behavior
